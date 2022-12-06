@@ -80,10 +80,8 @@ def main():
     st.sidebar.caption(f"Streamlit version `{st.__version__}`")
 
     # Generate a new image from this feature vector (or retrieve it from the cache).
-    with session.as_default():
-        image_out = generate_image(
-            
-        )
+
+    image_out = generate_image()
 
     st.image(image_out, use_column_width=True)
 
