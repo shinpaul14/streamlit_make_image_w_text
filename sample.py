@@ -1,16 +1,13 @@
 import numpy as np
-import os
-import pickle
-import streamlit as st
+
+
+
 import sys
-import tensorflow as tf
+
 import urllib
 
-sys.path.append("tl_gan")
-sys.path.append("pg_gan")
-import feature_axis
-import tfutil
-import tfutil_cpu
+
+
 #-------------------
 import time
 import os
@@ -137,44 +134,11 @@ def download_file(file_path):
 
 
 # Ensure that load_pg_gan_model is called only once, when the app first loads.
-@st.experimental_singleton()
-def load_pg_gan_model():
-    """
-    Create the tensorflow session.
-    """
-    # Open a new TensorFlow session.
-    config = tf.ConfigProto(allow_soft_placement=True)
-    session = tf.Session(config=config)
 
-    # Must have a default TensorFlow session established in order to initialize the GAN.
-    with session.as_default():
-        # Read in either the GPU or the CPU version of the GAN
-        with open(MODEL_FILE_GPU if USE_GPU else MODEL_FILE_CPU, "rb") as f:
-            G = pickle.load(f)
-    return session, G
 
 
 # Ensure that load_tl_gan_model is called only once, when the app first loads.
-@st.experimental_singleton()
-def load_tl_gan_model():
-    """
-    Load the linear model (matrix) which maps the feature space
-    to the GAN's latent space.
-    """
-    with open(FEATURE_DIRECTION_FILE, "rb") as f:
-        feature_direction_name = pickle.load(f)
 
-    # Pick apart the feature_direction_name data structure.
-    feature_direction = feature_direction_name["direction"]
-    feature_names = feature_direction_name["name"]
-    num_feature = feature_direction.shape[1]
-    feature_lock_status = np.zeros(num_feature).astype("bool")
-
-    # Rearrange feature directions using Shaobo's library function.
-    feature_direction_disentangled = feature_axis.disentangle_feature_axis_by_idx(
-        feature_direction, idx_base=np.flatnonzero(feature_lock_status)
-    )
-    return feature_direction_disentangled, feature_names
 
 
 def get_random_features(feature_names, seed):
