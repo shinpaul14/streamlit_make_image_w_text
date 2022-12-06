@@ -71,7 +71,7 @@ httplib2==0.14.0
 hydra-core==1.0.7
 hyperlink==19.0.0
 idna==2.8
-imagenetv2-pytorch==0.1
+
 importlib-metadata==5.1.0
 importlib-resources==5.9.0
 incremental==16.10.1
