@@ -25,9 +25,7 @@ def main():
     Shaobo Guan's [Transparent Latent-space GAN method](https://blog.insightdatascience.com/generating-custom-photo-realistic-faces-using-ai-d170b1b59255) 
     for tuning the output face's characteristics. For more information, check out the tutorial on [Towards Data Science](https://towardsdatascience.com/building-machine-learning-apps-with-streamlit-667cef3ff509)."""
 
-    # Download all data files if they aren't already in the working directory.
-    for filename in EXTERNAL_DEPENDENCIES.keys():
-        download_file(filename)
+
 
     # Read in models from the data files.
 
