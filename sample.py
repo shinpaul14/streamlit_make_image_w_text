@@ -30,8 +30,7 @@ def main():
         download_file(filename)
 
     # Read in models from the data files.
-    tl_gan_model, feature_names = load_tl_gan_model()
-    session, pg_gan_model = load_pg_gan_model()
+
 
     st.sidebar.title("Features")
     seed = 27834096
@@ -91,54 +90,6 @@ def main():
     st.image(image_out, use_column_width=True)
 
 
-def download_file(file_path):
-    # Don't download the file twice. (If possible, verify the download using the file length.)
-    if os.path.exists(file_path):
-        if "size" not in EXTERNAL_DEPENDENCIES[file_path]:
-            return
-        elif os.path.getsize(file_path) == EXTERNAL_DEPENDENCIES[file_path]["size"]:
-            return
-
-    # These are handles to two visual elements to animate.
-    weights_warning, progress_bar = None, None
-    try:
-        weights_warning = st.warning("Downloading %s..." % file_path)
-        progress_bar = st.progress(0)
-        with open(file_path, "wb") as output_file:
-            with urllib.request.urlopen(
-                EXTERNAL_DEPENDENCIES[file_path]["url"]
-            ) as response:
-                length = int(response.info()["Content-Length"])
-                counter = 0.0
-                MEGABYTES = 2.0 ** 20.0
-                while True:
-                    data = response.read(8192)
-                    if not data:
-                        break
-                    counter += len(data)
-                    output_file.write(data)
-
-                    # We perform animation by overwriting the elements.
-                    weights_warning.warning(
-                        "Downloading %s... (%6.2f/%6.2f MB)"
-                        % (file_path, counter / MEGABYTES, length / MEGABYTES)
-                    )
-                    progress_bar.progress(min(counter / length, 1.0))
-
-    # Finally, we remove these visual elements by calling .empty().
-    finally:
-        if weights_warning is not None:
-            weights_warning.empty()
-        if progress_bar is not None:
-            progress_bar.empty()
-
-
-# Ensure that load_pg_gan_model is called only once, when the app first loads.
-
-
-
-# Ensure that load_tl_gan_model is called only once, when the app first loads.
-
 
 
 def get_random_features(feature_names, seed):
@@ -171,26 +122,6 @@ def generate_image():
 
 
     return images[0]
-
-
-USE_GPU = False
-FEATURE_DIRECTION_FILE = "feature_direction_2018102_044444.pkl"
-MODEL_FILE_GPU = "karras2018iclr-celebahq-1024x1024-condensed.pkl"
-MODEL_FILE_CPU = "karras2018iclr-celebahq-1024x1024-condensed-cpu.pkl"
-EXTERNAL_DEPENDENCIES = {
-    "feature_direction_2018102_044444.pkl": {
-        "url": "https://streamlit-demo-data.s3-us-west-2.amazonaws.com/facegan/feature_direction_20181002_044444.pkl",
-        "size": 164742,
-    },
-    "karras2018iclr-celebahq-1024x1024-condensed.pkl": {
-        "url": "https://streamlit-demo-data.s3-us-west-2.amazonaws.com/facegan/karras2018iclr-celebahq-1024x1024-condensed.pkl",
-        "size": 92338293,
-    },
-    "karras2018iclr-celebahq-1024x1024-condensed-cpu.pkl": {
-        "url": "https://streamlit-demo-data.s3-us-west-2.amazonaws.com/facegan/karras2018iclr-celebahq-1024x1024-condensed-cpu.pkl",
-        "size": 92340233,
-    },
-}
 
 if __name__ == "__main__":
     main()
