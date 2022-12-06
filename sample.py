@@ -37,7 +37,7 @@ def main():
 
     if st.sidebar.checkbox("Show advanced options"):
         # Randomly initialize feature values.
-        features = get_random_features(feature_names, seed)
+        features = {'a':'1', 'b':'2', 'c':'3'}
 
         # Some features are badly calibrated and biased. Removing them
         block_list = ["Attractive", "Big_Lips", "Big_Nose", "Pale_Skin"]
@@ -52,7 +52,7 @@ def main():
             default_control_features,
         )
     else:
-        features = get_random_features(feature_names, seed)
+        features = {'a':'1', 'b':'2', 'c':'3'}
         # Don't let the user pick feature values to control.
         control_features = default_control_features
 
@@ -90,14 +90,14 @@ def main():
 
 
 
-def get_random_features(feature_names, seed):
-    """
-    Return a random dictionary from feature names to feature
-    values within the range [40,60] (out of [0,100]).
-    """
-    np.random.seed(seed)
-    features = dict((name, 40 + np.random.randint(0, 21)) for name in feature_names)
-    return features
+# def get_random_features(feature_names, seed):
+#     """
+#     Return a random dictionary from feature names to feature
+#     values within the range [40,60] (out of [0,100]).
+#     """
+#     np.random.seed(seed)
+#     features = dict((name, 40 + np.random.randint(0, 21)) for name in feature_names)
+#     return features
 
 
 # Hash the TensorFlow session, the pg-GAN model, and the TL-GAN model by id
