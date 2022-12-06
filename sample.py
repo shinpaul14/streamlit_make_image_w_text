@@ -35,4 +35,4 @@ from PIL import Image
 image = Image.fromarray(images)
 # image = Image.open('sunrise.jpg')
 
-st.image(image, caption='photograph of an astronaut riding a horse')
+st.image(image.save('sunrise.jpg'), caption='photograph of an astronaut riding a horse')
