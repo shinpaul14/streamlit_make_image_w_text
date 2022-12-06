@@ -2,3 +2,4 @@ tensorflow==2.11.0
 keras-cv==0.3.4 
 streamlit==1.15.2
 watchdog==2.1.9
+tensorflow-datasets==2.*
