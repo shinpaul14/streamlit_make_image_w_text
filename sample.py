@@ -131,11 +131,11 @@ def main():
             "What type of art work do you want??",
             ('Random','I will write it','portrait photo', 'Photo','photography','concept art',
         'Painting','clear portrait','digital concept art','award winning photography','epic cinematic concept art CG',
-        'cinematic shot','Fantasy art','hyper realistic','typography','3d typography','poster','diagram','anime','digital art'))
+        'cinematic shot','Fantasy art','typography','3d typography','poster','diagram','anime','digital art'))
 
             Quality = st.selectbox("What kind of quality work do you want??",
             ('Random','I will write it','detailed illustration','HD','4k','16k','3d render','ultrarealistic','professional studio','highly detailed','very complex hyper-maximalist overdetailed','photo realistic',
-            'CG render','unreal engine, hyper detailed, photo','high quality','hyperdetailed'))
+            'CG render','unreal engine','hyper realistic', 'hyper detailed', 'photo','high quality','hyperdetailed'))
 
             Theme = st.selectbox('DO you want to implment Theme',
             ('Random','I will write it','borderlands 3','cyberpunk','MOBA','The Legend of Zelda','Breath of The Wild','Nausicaa Ghibli','studio ghibli','disney animation','pixar'))
